@@ -1,0 +1,9 @@
+@startUML "Aplikasi PPDb 2023"
+
+entity users{
+    *id varchar (100)<<pk>>
+    --
+    *name varchar(225)
+    *email varchar(255)
+}
+@enduml
