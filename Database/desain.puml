@@ -1,0 +1,22 @@
+@startuml
+
+actor "User" as user
+
+node "PHP LOGIN MANAGEMENT"{
+node "model" as model
+node "Controller" as Controller
+node "View" as view
+node "Service" as service
+node "Repository" as repository
+}
+database "mysql" as mysql
+
+user --> Controller
+Controller --> model
+Controller --> service
+service --> repository
+repository -->mysql
+Controller -->view
+Controller --> user
+
+@enduml
