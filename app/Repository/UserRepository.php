@@ -5,44 +5,47 @@ namespace ProgrammerZamanNow\Belajar\PHP\MVC\Repository;
 use PDO;
 use ProgrammerZamanNow\Belajar\PHP\MVC\Domain\User;
 
-class UserRepository{
+class UserRepository
+{
     private PDO $connection;
     public function __construct(PDO $connection)
     {
         $this->connection  = $connection;
     }
 
-    public function save(User $user):User{
+    public function save(User $user): User
+    {
         $statement = $this->connection->prepare("INSERT INTO users(id,name,password)VALUES(?,?,?)");
         $statement->execute([
-            $user->id,$user->name,$user->password
+            $user->id, $user->name, $user->password
         ]);
         return $user;
     }
 
-    public function findById(string $id) :?User{
+    public function findById(string $id): ?User
+    {
         $statement = $this->connection->prepare("SELECT id,name,password FROM users WHERE  id =?");
         $statement->execute([$id]);
 
-        try{
-           // lakukan pengecakan
-            if($row = $statement->fetch()){
+        try {
+            // lakukan pengecakan
+            if ($row = $statement->fetch()) {
                 // buat objectnya
                 $user = new User();
                 $user->id = $row['id'];
                 $user->name = $row['name'];
-                $user->password = $row['password'];  
+                $user->password = $row['password'];
                 return $user;
-            }else{
+            } else {
                 return null;
             }
-
-        }finally{
+        } finally {
             $statement->closeCursor();
         }
     }
 
-    public function deleteAll(){
+    public function deleteAll()
+    {
         $this->connection->exec("DELETE FROM users");
     }
 }
