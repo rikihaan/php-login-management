@@ -19,3 +19,5 @@ SELECT * FROM sessions;
 SHOW TABLES;
 
 SELECT * FROM users;
+SHOW GLOBAL VARIABLES LIKE 'named_pipe';
+
